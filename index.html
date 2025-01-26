@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Iglesia - Ministerios</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="adminLogin">
+    <h2>Ingreso Administrador</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar sesión</button>
+    </form>
+    <hr>
+    <h3>Para invitados</h3>
+    <p>¿No eres administrador? Usa la siguiente opción para buscar participaciones:</p>
+    <input type="date" id="searchDateGuestLogin">
+    <button onclick="searchParticipationGuestLogin()">Buscar Participación</button>
+    <div id="guestMinistriesListLogin"></div>
+  </div>
+
+  <div id="appContainer" style="display: none;">
+    <h1>Gestión de Ministerios</h1>
+    <button id="logoutBtn">Cerrar sesión</button>
+
+    <div id="adminSection">
+      <h2>Ingresar Ministro</h2>
+      <form id="ministerForm">
+        <input type="text" id="ministerName" placeholder="Nombre del ministro" required>
+        <input type="text" id="supportMinisters" placeholder="Ministros de apoyo (separados por comas)" required>
+        <input type="date" id="serviceDate" required>
+        <button type="submit">Agregar Ministro</button>
+      </form>
+
+      <h2>Buscar Participación de Ministros</h2>
+      <input type="date" id="searchDateAdmin">
+      <button onclick="searchParticipationAdmin()">Buscar</button>
+
+      <button id="generateImageBtn">Generar Imagen de Participaciones</button>
+      <div id="ministriesList"></div>
+    </div>
+
+    <div id="guestSection">
+      <h2>Buscar Participación por Fecha (Para Invitados)</h2>
+      <input type="date" id="searchDateGuest">
+      <button onclick="searchParticipationGuest()">Buscar</button>
+      <div id="guestMinistriesList"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
