@@ -91,20 +91,41 @@ function mostrarVentas() {
     });
 }
 
-// Enviar reporte por correo (simulado en consola)
-function enviarCorreo() {
-    const emailDestino = document.getElementById('emailDestino').value;
+// Generar PDF
+function generarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    if (emailDestino) {
-        const reporte = productos.map(p =>
-            `Producto: ${p.nombre}, Stock: ${p.cantidad}, Ventas: $${p.ventas.toFixed(2)}, Cantidad Vendida: ${p.cantidadVendida}`
-        ).join('\n');
+    // Establecer márgenes y font
+    doc.setFontSize(16);
+    doc.text('Informe de Ventas y Stock', 20, 20);
 
-        console.log(`Enviando reporte a: ${emailDestino}\n\n${reporte}`);
-        alert('Reporte enviado exitosamente (simulado en consola).');
-    } else {
-        alert('Por favor, ingresa un correo electrónico.');
-    }
+    let y = 30; // Posición Y inicial para el texto
+
+    // Establecer interlineado y margen
+    const lineHeight = 10; // Espacio entre líneas
+    doc.setFontSize(12);
+
+    // Detalles de los productos
+    productos.forEach(producto => {
+        if (producto.cantidadVendida > 0 || producto.cantidad > 0) {
+            doc.text(`Producto: ${producto.nombre}`, 20, y);
+            doc.text(`Stock: ${producto.cantidad}`, 100, y);
+            doc.text(`Cantidad Vendida: ${producto.cantidadVendida}`, 140, y);
+            doc.text(`Ventas Totales: $${producto.ventas.toFixed(2)}`, 180, y);
+
+            y += lineHeight;  // Mueve la posición para la siguiente línea
+
+            // Si el espacio es pequeño (más de 260 líneas), agrega una nueva página
+            if (y > 270) {
+                doc.addPage();  // Crea una nueva página si la actual está llena
+                y = 20; // Reinicia la posición para la nueva página
+            }
+        }
+    });
+
+    // Descargar el PDF
+    doc.save('reporte_ventas_stock.pdf');
 }
 
 // Borrar producto de la lista
@@ -113,10 +134,11 @@ function borrarProducto(index, event) {
     if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
         productos.splice(index, 1); // Elimina el producto del array
         localStorage.setItem('productos', JSON.stringify(productos)); // Actualiza el almacenamiento local
-        cargarListaProductos(); // Recarga la lista de productos
+        cargarListaProductos(); // Dibuja / Recarga la lista de productos
     }
 }
 
 // Cargar la lista de productos al iniciar la app
 cargarListaProductos();
 
+                        
