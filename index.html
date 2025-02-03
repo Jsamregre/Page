@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS - Control de Inventario</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Añadimos jsPDF -->
+</head>
+<body>
+    <div class="container">
+        <h1>Control de Inventario - POS</h1>
+
+        <!-- Agregar Producto Nuevo -->
+        <section>
+            <h2>Agregar Producto Nuevo</h2>
+            <input type="text" id="nombreProducto" placeholder="Nombre del Producto">
+            <input type="number" id="cantidadProducto" placeholder="Cantidad Inicial" min="0">
+            <input type="number" id="precioCompra" placeholder="Precio de Compra" min="0" step="0.01">
+            <button onclick="agregarProducto()">Agregar Producto</button>
+        </section>
+
+        <!-- Recuento de Stock -->
+        <section>
+            <h2>Recuento de Stock</h2>
+            <div id="listaProductos"></div>
+            <div id="recuentoContainer" style="display: none;"></div>
+        </section>
+
+        <!-- Resumen de Ventas -->
+        <section>
+            <h2>Resumen de Ventas</h2>
+            <button onclick="mostrarVentas()">Mostrar Ventas</button>
+            <ul id="listaVentas"></ul>
+        </section>
+
+        <!-- Generar Reporte PDF -->
+        <section>
+            <h2>Generar Reporte PDF</h2>
+            <button onclick="generarPDF()">Generar Reporte PDF</button> <!-- Nuevo botón para generar PDF -->
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
